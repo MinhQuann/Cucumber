@@ -18,8 +18,8 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 @CucumberOptions(
         //Tệp tính năng, Vị trí cá feature
         features = "C:\\Users\\Admin\\IdeaProjects\\Cucumber\\src\\test\\resources\\org\\apache",
-        glue = "C:\\Users\\Admin\\IdeaProjects\\Cucumber\\src\\test\\java\\org\\apache",
-        plugin = {"pretty", "html : target/cucumber-html-report.html"}
+        glue = "StepsDefinitions",
+        plugin = {"pretty", "html :target/report.html"}
 )
 
 @Test
