@@ -25,9 +25,9 @@ public class LoginPage  extends  PageObject{
 
     By LockMsgWithIncorrectUserName_pwd = By.cssSelector("div.ant-notification-notice-description");
 
-    By InputUserNoti = By.cssSelector("div.ant-form-item-explain-error");
+    By InputUserNoti = By.id("basic_email_help");
 
-    By InputPwdNoti = By.cssSelector("div.ant-form-item-explain-error");
+    By InputPwdNoti = By.id("basic_pass_help");
 
     @FindBy(xpath = "//div[@class = 'forgot-password']")
     public WebElement ClickForgotPass;

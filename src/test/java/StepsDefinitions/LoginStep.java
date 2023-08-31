@@ -37,6 +37,8 @@ public class LoginStep {
             scenario.attach(screenshot, "image/png", "screenshot");
         }
 
+        driver.quit();
+
 
     }
     @Given("The login page page is showed1")
@@ -73,16 +75,12 @@ public class LoginStep {
 
     }
     @Then("The title {string} should be showed")
-    public void the_title_should_be_showed(String Title) {
-        try {
-            Thread.sleep(3000);
-            assertThat(this.dashboard.GetTitleDashBoard(), equalTo(Title));
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    public void the_title_should_be_showed(String Title) throws InterruptedException {
+        assertThat(this.dashboard.test(), equalTo(Title));
 
 
     }
+
 
 
 }
