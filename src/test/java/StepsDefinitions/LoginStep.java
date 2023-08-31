@@ -56,7 +56,7 @@ public class LoginStep {
 
     }
 
-    @When("The user attempt to login with username {string} and pwd {string}")
+    @When("The user attempt to login with wrong username {string} and wrong pwd {string}")
     public void the_user_attempt_to_login_with_Wrong_username_and_pwd(String username, String pwd) {
         this.loginPage.LoginPass_Fail(username,pwd);
 
@@ -74,7 +74,13 @@ public class LoginStep {
     }
     @Then("The title {string} should be showed")
     public void the_title_should_be_showed(String Title) {
-        assertThat(this.dashboard.GetTitleDashBoard(), equalTo(Title));
+        try {
+            Thread.sleep(3000);
+            assertThat(this.dashboard.GetTitleDashBoard(), equalTo(Title));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 
