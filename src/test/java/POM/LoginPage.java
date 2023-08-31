@@ -5,38 +5,80 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class LoginPage {
+public class LoginPage  extends  PageObject{
 
-    @FindBy(css = "input#auth-block")
-    public WebElement tbUsername;
-    @FindBy(css = "")
-    public WebElement tbPassword;
-    @FindBy(css = "")
-    public WebElement btnLogin;
-    @FindBy(css = "")
-    public WebElement lbUserNameErr;
-    @FindBy(css = "")
-    public WebElement lbPWdErr;
-    @FindBy(css = "")
-    By locErr = By.cssSelector("");
+    By clickBtnLoginOutSidePage = By.cssSelector("button.ant-btn-primary");
+
+    @FindBy(id = "basic_email")
+    public WebElement EmailLgn;
+
+    @FindBy(id = "basic_pass")
+    public WebElement Pwdlgn;
+
+    @FindBy(css = "button[type = 'submit']")
+    public WebElement ClickBtnLoginPage;
+
+    By LockMsgWithIncorrectUserName_pwd = By.cssSelector("div.ant-notification-notice-description");
+
+    By InputUserNoti = By.cssSelector("div.ant-form-item-explain-error");
+
+    By InputPwdNoti = By.cssSelector("div.ant-form-item-explain-error");
+
+    @FindBy(xpath = "//div[@class = 'forgot-password']")
+    public WebElement ClickForgotPass;
+
+    @FindBy(css = "input[type = 'email']")
+    public  WebElement ForgotEmailPage;
+
+    @FindBy(xpath = "//button[@class = 'ant-btn-default']")
+    public  WebElement ClickRestorePwd;
+
+    @FindBy(xpath = "//div[@class = 'backToLogin custom-cursor-on-hover']")
+    public WebElement ClickBacktoLoginPage;
+
 
 
     WebDriver driver;
     public LoginPage(WebDriver driver){
+        super(driver);
         this.driver = driver;
+        PageFactory.initElements(this.driver, this);
 
     }
 
     public void Open(){
-        this.driver.get("https://fado.vn/dang-nhap?redirect=https%3A%2F%2Ffado.vn%2F%3Futm_source%3Dgoogle%26utm_medium%3Dcpc%26ref_id%3Dgooglebrand%26gclid%3DCj0KCQjw0bunBhD9ARIsAAZl0E2hAzEUVld8t5mKB9SQr5lkgT-Sl7mfnhVGTW1jYZWjd-u_mKX2xfAaAm7QEALw_wcB");
+        this.driver.get("https://lab.connect247.vn/ucrm-sso/");
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-        this.driver.manage().window().maximize();
+        this.getDynamicElement(clickBtnLoginOutSidePage).click();
 
-        PageFactory.initElements(this.driver, this);
+    }
+    public void LoginPass_Fail(String userN, String PWD){
+        this.EmailLgn.sendKeys(userN);
+        this.Pwdlgn.sendKeys(PWD);
+        this.ClickBtnLoginPage.click();
+    }
+
+
+    public String ErrMsg(){
+        WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(40));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(LockMsgWithIncorrectUserName_pwd)).getText();
+
+    }
+
+    public String ErrMsgInput(){
+        WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(40));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(InputUserNoti)).getText();
+
+    }
+
+    public String ErrMsgPwdInput(){
+        WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(40));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(InputPwdNoti)).getText();
     }
 
 
