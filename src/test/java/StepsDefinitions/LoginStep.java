@@ -28,6 +28,7 @@ public class LoginStep {
         this.driver = new ChromeDriver();
         this.driver.manage().window().maximize();
         this.loginPage = new LoginPage(this.driver);
+        this.dashboard = new Dashboard(this.driver);
     }
 
     @After
@@ -76,8 +77,7 @@ public class LoginStep {
     }
     @Then("The title {string} should be showed")
     public void the_title_should_be_showed(String Title) throws InterruptedException {
-        assertThat(this.dashboard.test(), equalTo(Title));
-
+        assertThat(this.dashboard.GetTitleDashBoard(), equalTo(Title));
 
     }
 

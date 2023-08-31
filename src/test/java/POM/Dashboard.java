@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class Dashboard extends PageObject {
+public class Dashboard {
     WebDriver driver;
 
     @FindBy(css = "div##test1.title")
@@ -15,7 +15,6 @@ public class Dashboard extends PageObject {
 
 
     public Dashboard(WebDriver driver){
-        super(driver);
         this.driver = driver;
         PageFactory.initElements(this.driver, driver);
 
@@ -26,8 +25,5 @@ public class Dashboard extends PageObject {
         return driver.getTitle();
 
     }
-    public String test(){
 
-        return  this.DashTile.getText();
-    }
 }
