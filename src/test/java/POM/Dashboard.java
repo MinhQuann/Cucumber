@@ -17,13 +17,10 @@ public class Dashboard {
     public Dashboard(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(this.driver, driver);
-
     }
-
     public String GetTitleDashBoard() throws InterruptedException {
         Thread.sleep(5000);
         return driver.getTitle();
-
     }
 
 }
