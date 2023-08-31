@@ -30,14 +30,12 @@ public class ReportPage extends  PageObject{
     public WebElement btnNext;
 
 
-
-
-
-
     public ReportPage(WebDriver driver){
         super(driver);
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
     }
+
+
 }
 

@@ -49,7 +49,7 @@ public class LoginStep {
     }
     @When("The user login with blank value for both username and password")
     public void the_user_login_with_blank_value_for_both_username_and_password() {
-        this.loginPage.LoginPass_Fail("", "");
+        this.loginPage.Login("", "");
 
     }
     @Then("The msg {string} will be showed for username and {string} for pwd")
@@ -61,7 +61,7 @@ public class LoginStep {
 
     @When("The user attempt to login with wrong username {string} and wrong pwd {string}")
     public void the_user_attempt_to_login_with_Wrong_username_and_pwd(String username, String pwd) {
-        this.loginPage.LoginPass_Fail(username,pwd);
+        this.loginPage.Login(username,pwd);
 
     }
     @Then("The msg {string} should be showed")
@@ -72,7 +72,7 @@ public class LoginStep {
 
     @When("The user attempt to login with username {string} and pwd {string}")
     public void the_user_attempt_to_login_with_username_and_pwd(String Username, String PWD) {
-        this.loginPage.LoginPass_Fail(Username,PWD);
+        this.loginPage.Login(Username,PWD);
 
     }
     @Then("The title {string} should be showed")

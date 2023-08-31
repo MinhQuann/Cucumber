@@ -51,13 +51,15 @@ public class LoginPage  extends  PageObject{
 
     }
 
+
+
     public void Open(){
         this.driver.get("https://lab.connect247.vn/ucrm-sso/");
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         this.getDynamicElement(clickBtnLoginOutSidePage).click();
 
     }
-    public void LoginPass_Fail(String userN, String PWD){
+    public void Login(String userN, String PWD){
         this.EmailLgn.sendKeys(userN);
         this.Pwdlgn.sendKeys(PWD);
         this.ClickBtnLoginPage.click();
