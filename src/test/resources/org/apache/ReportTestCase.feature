@@ -1,9 +1,4 @@
 Feature: Custom Report
-  Scenario: Create Custom Report
-    Given Log in to the UCRM with a valid user account
-    When Access the function to create report options
-    And Select the information and criteria to create the report
-    Then CustomReport Page Is Show With "Automation" Name, "Save" btn, "Run Report" btn, "Add key" btn
 
   Scenario: Filter data in reports
     Given Log in to the UCRM with a valid user account

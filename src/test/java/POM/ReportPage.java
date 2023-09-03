@@ -14,9 +14,12 @@ public class ReportPage extends  PageObject{
     @FindBy(css = "ant-btn-default")
     public WebElement bbtnAddnew;
 
+    @FindBy(id = "report_name")
     public WebElement inputReportName;
 
+    @FindBy(id = "description")
     public WebElement Descripton;
+
 
     public WebElement Pagination;
 
@@ -32,16 +35,12 @@ public class ReportPage extends  PageObject{
 
     public WebElement btnNext;
 
-    //Folder
-
-
-
 
 
     //CustomReport
 
     public WebElement btnSave;
-
+    @FindBy(css = "div.sc-bkEOxz")
     public WebElement btnADDKEY;
 
     public WebElement CHECKBOXHIDEN;

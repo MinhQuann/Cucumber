@@ -21,22 +21,6 @@ public class ReportCustomStep {
         this.loginPage.Open();
         this.loginPage.Login("quanbnm@basbes.com", "12345678x@X");
         this.reportPage.OpenReportPage();
-
-    }
-    @When("Access the function to create report options")
-    public void access_the_function_to_create_report_options() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @When("Select the information and criteria to create the report")
-    public void select_the_information_and_criteria_to_create_the_report() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @Then("CustomReport Page Is Show With {string} Name, {string} btn, {string} btn, {string} btn")
-    public void custom_report_page_is_show_with_name_btn_btn_btn(String string, String string2, String string3, String string4) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
     }
 
     @When("The custom report page is displayed")
