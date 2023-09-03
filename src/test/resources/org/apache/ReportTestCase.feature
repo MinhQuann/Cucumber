@@ -1,80 +1,30 @@
-Feature: Report
-  Background: Tôi đã truy cập vào Tenant với tài khoản hợp lệ, đã có sẵn các folder report , Custom Report và bắt đầu sử dụng CustomReport
-    Scenario: Verify Custom Report with Static Type
-    Given Report page is opened
-    When I add a new key with type Static and value "1000"
-    Then I will see "1000" on the result
+Feature: Custom Report
+  Scenario: Create Custom Report
+    Given Log in to the UCRM with a valid user account
+    When Access the function to create report options
+    And Select the information and criteria to create the report
+    Then CustomReport Page Is Show With "Automation" Name, "Save" btn, "Run Report" btn, "Add key" btn
 
-  Scenario: Verify Custom Report with Static Type
-    Given Report page is opened
-    When I add a new key with type Static and value "-10"
-    Then I will see "-10 " on the result
+  Scenario: Filter data in reports
+    Given Log in to the UCRM with a valid user account
+    When The custom report page is displayed
+    And Apply filter conditions to limit data in the report.
+    And I click Save Report and Noti "Success"
+    And I Click RunReport Btn
+    Then I see Expected Result and Noti "Success"
 
+  Scenario: Update and Del Report
+    Given The custom report page is displayed
+    When I Click Del btn
+    Then The Key is deleted
 
-    Scenario: Verify Custom Report with RollUp Type With no Condition and Aggregation =  Count
-      Given Report page is opened
-      When  I add new key with Type RollUp
-      And  I choose Object Contact And I choose Field ContactID
-      Then I will see the expected result
-
-
-    Scenario: Verify Custom Report with RollUp Type With 1 Condition and Aggregation = Sum
-      Given Report page is opened
-      When  I add new key with Type RollUp
-      And  I choose Object Contact And I add new Condition And I choose field test select option And I choose type (IS EMPTY) And I choose Field MoneyShit And I Choose Sum
-      Then I will see the expected result
-
-    Scenario: Verify Custom Report with RollUp Type With 1 Condition and Aggregation = Max
-      Given Report page is opened
-      When  I add new key with Type RollUp
-      And  I choose Object Contact And  I choose Field MoneyShit And I choose Type ( And I choose Field MoneyShit And I Choose Max
-      Then I will see the expected result
-
-    Scenario: Verify Custom Report with RollUp Type With 1 Condition and Aggregation = Min
-      Given Report page is opened
-      When  I add new key with Type RollUp
-      And  I choose Object Contact And I choose Field MoneyShit And I Choose Min
-      Then I will see the expected result
-
-    Scenario: Verify Custom Report with RollUp Type With 1 Condition and Aggregation = Average
-      Given Report page is opened
-      When  I add new key with Type RollUp
-      And  I choose Object Contact And I choose Field MoneyShit And I Choose Average
-      Then I will see the expected result
-
-    Scenario: Verify Custom Report with RollUp Type With 2 Condition and Aggregation =  Sum
-      Given Report page is opened
-      When  I add new key with Type RollUp
-      And  I choose Object Contact And I choose Field MoneyShit And I Choose Sum
-      Then I will see the expected result
-
-  Scenario: Verify Custom Report with RollUp Type With 2 Condition and Aggregation =  Max
-    Scenario: Verify Custom Report with RollUp Type With 2 Condition and Aggregation =  Min
-    Scenario: Verify Custom Report with RollUp Type With 2 Condition and Aggregation = Average
-
-    Scenario: Verify Custom Report With Related Type (Key + Key)
-    Scenario: Verify Custom Report With Related Type (Key - Key)
-    Scenario: Verify Custom Report With Related Type (Key * Key)
-    Scenario: Verify Custom Report With Related Type (Key / Key)
-    Scenario: Verify Custom Report With Related Type (Key + Key)
-    Scenario: Verify Custom Report With Related Type (Key + Key)*(key+Key)/(key*Key)
-    Scenario: Kiểm tra check box Show khi run Report
-    Scenario: Kiểm tra check box Hide khi run Report
-    Scenario: Xóa Key
-    Scenario: Xóa Key với trường hợp đang sử dụng
-    Scenario: Verify Notification After Run Report
-
-
-
-
-
-
-
-
-
-
-
-
+  Scenario: Caculated in CustomReport
+    Given The custom report page is displayed
+    When I Add 10 key with Static, RollUp
+    And I Add 5 Key with Related Type
+    And I click Save Report and Noti "Success"
+    And I Click RunReport Btn
+    Then The Result is displays
 
 
 

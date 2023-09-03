@@ -42,7 +42,6 @@ public class LoginPage  extends  PageObject{
     public WebElement ClickBacktoLoginPage;
 
 
-
     WebDriver driver;
     public LoginPage(WebDriver driver){
         super(driver);
@@ -51,20 +50,17 @@ public class LoginPage  extends  PageObject{
 
     }
 
-
-
     public void Open(){
         this.driver.get("https://lab.connect247.vn/ucrm-sso/");
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         this.getDynamicElement(clickBtnLoginOutSidePage).click();
-
     }
+
     public void Login(String userN, String PWD){
         this.EmailLgn.sendKeys(userN);
         this.Pwdlgn.sendKeys(PWD);
         this.ClickBtnLoginPage.click();
     }
-
 
     public String ErrMsg(){
         WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(40));
