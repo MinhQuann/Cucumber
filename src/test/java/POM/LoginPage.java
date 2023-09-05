@@ -1,5 +1,6 @@
 package POM;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -12,8 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.time.Duration;
 
 public class LoginPage  extends  PageObject {
@@ -49,6 +49,7 @@ public class LoginPage  extends  PageObject {
 
 
     WebDriver driver;
+    Dashboard dashboard;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -109,8 +110,50 @@ public class LoginPage  extends  PageObject {
             this.Pwdlgn.sendKeys(password);
             this.ClickBtnLoginPage.click();
         }
+    }
+
+    public void ReadnWrite() throws IOException, InterruptedException {
+        String filePath = "C:\\Users\\Admin\\Downloads\\LoginFile.xlsx";
+        String sheetName = "Sheet1";
+
+        //Open the Excelfile
+        FileInputStream excelFile = new FileInputStream(filePath);
+        Workbook workbook = new XSSFWorkbook(excelFile);
+        Sheet sheet = workbook.getSheet(sheetName);
+
+        for (int i = 1; i <= sheet.getLastRowNum(); i++){
 
 
+            Row row = sheet.getRow(i);
+            String username = row.getCell(0).getStringCellValue();
+            String password = row.getCell(1).getStringCellValue();
+
+            boolean loginSuccess = performLogin(username,password);
+
+            if (loginSuccess){
+                Cell resultCell = row.createCell(2);
+                resultCell.setCellValue("pass");
+            }
+
+        }
+
+        FileOutputStream outputStream = new FileOutputStream(filePath);
+        workbook.write(outputStream);
+        outputStream.close();
+        workbook.close();
+        excelFile.close();
+    }
+
+    public boolean performLogin(String username, String password) throws InterruptedException {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.EmailLgn.sendKeys(username);
+        loginPage.Pwdlgn.sendKeys(password);
+        loginPage.ClickBtnLoginPage.click();
+
+        if (this.dashboard.GetTitleDashBoard().equals("Dashboard")) {
+            return true;
+        }
+        return false;
     }
 
 

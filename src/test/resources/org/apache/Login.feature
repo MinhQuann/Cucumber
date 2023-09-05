@@ -17,5 +17,5 @@ Feature: Login
 
   Scenario: The Dashboard Title will be show when login Success after Dev change Email
     Given The login page page is showed1
-    When The user attempt to login with username and password in ExcelFile and "Dashboard" title is showed
-    Then Quit
+    When The user attempt to login with username and password in ExcelFile
+    Then The title "Dashboard" should be showed

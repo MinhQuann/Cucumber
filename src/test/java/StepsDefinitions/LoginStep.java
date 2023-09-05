@@ -85,19 +85,14 @@ public class LoginStep {
         }
 
     }
-    @When("The user attempt to login with username and password in ExcelFile and {string} title is showed")
-    public void the_user_attempt_to_login_with_username_and_password_in_excel_file_and_title_is_showed(String string) {
+    @When("The user attempt to login with username and password in ExcelFile")
+    public void the_user_attempt_to_login_with_username_and_password_in_excel_file() throws IOException {
         try {
-            this.loginPage.LoginTest();
-            assertThat(this.dashboard.GetTitleDashBoard() , equalTo(string));
-        } catch (IOException | InterruptedException e) {
+            this.loginPage.ReadnWrite();
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
-    @Then("Quit")
-    public void quit() throws InterruptedException {
-        Thread.sleep(60000);
-        this.driver.quit();
+
 
     }
 
