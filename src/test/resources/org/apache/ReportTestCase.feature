@@ -1,4 +1,8 @@
 Feature: Custom Report
+  Scenario: Create Custom Report
+    Given Log in to the UCRM with a valid user account
+    When The user attempt to create Report
+    Then "Automation Test CustomReport" name is showed, "Save" btn, "Run Report" btn
 
   Scenario: Filter data in reports
     Given Log in to the UCRM with a valid user account
@@ -13,10 +17,10 @@ Feature: Custom Report
     When I Click Del btn
     Then The Key is deleted
 
-  Scenario: Caculated in CustomReport
+  Scenario: Calculated in CustomReport
     Given The custom report page is displayed
-    When I Add 10 key with Static, RollUp
-    And I Add 5 Key with Related Type
+    When I Add ten key with Static, RollUp
+    And I Add five Key with Related Type
     And I click Save Report and Noti "Success"
     And I Click RunReport Btn
     Then The Result is displays

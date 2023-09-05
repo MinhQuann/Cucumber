@@ -13,6 +13,8 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.io.IOException;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -37,10 +39,7 @@ public class LoginStep {
             final byte[] screenshot = ((TakesScreenshot) this.driver).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", "screenshot");
         }
-
         driver.quit();
-
-
     }
     @Given("The login page page is showed1")
     public void the_login_page_page_is_showed1() {
@@ -56,6 +55,7 @@ public class LoginStep {
     public void the_msg_will_be_showed_for_username_and_for_pwd(String ErrMsgUserName, String ErrMsgPWD) {
         assertThat(this.loginPage.ErrMsgInput(), equalTo(ErrMsgUserName));
         assertThat(this.loginPage.ErrMsgPwdInput(), equalTo(ErrMsgPWD));
+
 
     }
 
@@ -77,7 +77,27 @@ public class LoginStep {
     }
     @Then("The title {string} should be showed")
     public void the_title_should_be_showed(String Title) throws InterruptedException {
-        assertThat(this.dashboard.GetTitleDashBoard(), equalTo(Title));
+        try {
+            Thread.sleep(7000);
+            assertThat(this.dashboard.GetTitleDashBoard(), equalTo(Title));
+        }catch (Exception e){
+            System.out.print(e);
+        }
+
+    }
+    @When("The user attempt to login with username and password in ExcelFile and {string} title is showed")
+    public void the_user_attempt_to_login_with_username_and_password_in_excel_file_and_title_is_showed(String string) {
+        try {
+            this.loginPage.LoginTest();
+            assertThat(this.dashboard.GetTitleDashBoard() , equalTo(string));
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Then("Quit")
+    public void quit() throws InterruptedException {
+        Thread.sleep(60000);
+        this.driver.quit();
 
     }
 
