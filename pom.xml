@@ -31,7 +31,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -98,6 +97,17 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-excelant</artifactId>
             <version>5.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.xethh.utils</groupId>
+            <artifactId>ExcelUtils</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

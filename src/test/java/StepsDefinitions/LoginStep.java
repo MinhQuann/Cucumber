@@ -2,23 +2,31 @@ package StepsDefinitions;
 
 import POM.Dashboard;
 import POM.LoginPage;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.jetbrains.annotations.NotNull;
+import org.junit.platform.suite.api.ConfigurationParameter;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
+import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class LoginStep {
+
 
     WebDriver driver;
     LoginPage loginPage;
@@ -85,17 +93,30 @@ public class LoginStep {
         }
 
     }
-    @When("The user attempt to login with username and password in ExcelFile")
-    public void the_user_attempt_to_login_with_username_and_password_in_excel_file() throws IOException {
-        try {
-            this.loginPage.ReadnWrite();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+    @When("I login with the following accounts")
+    public void i_login_with_the_following_accounts(@NotNull DataTable dataTable) throws InterruptedException, IOException {
+        List<Map<String, String >> accounts = dataTable.asMaps();
+
+        for (Map<String, String> account : accounts){
+            String username = account.get("Username");
+            String Password = account.get("Password");
+
+            this.loginPage.Login(username, Password);
+
+            String actual =  this.dashboard.GetTitleDashBoard();
+
+            if(actual.equals("Dashboard")){
+                System.out.print("Pass");
+                LoginPage.writeResultToExcel("C:\\Users\\Bui Nguyen Minh Quan\\Desktop\\Scritp\\TestCase.xlsx","Sheet1",2,2,"Pass");
+            }else {
+                LoginPage.writeResultToExcel("C:\\Users\\Bui Nguyen Minh Quan\\Desktop\\Scritp\\TestCase.xlsx","Sheet1",2,2,"Fail");
+            }
+            Thread.sleep(3000);
+            this.loginPage.LogOut();
+            this.loginPage.Open();
+
         }
-
-
     }
-
 
 
 }

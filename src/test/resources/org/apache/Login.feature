@@ -1,5 +1,6 @@
 Feature: Login
 
+
   Scenario: The Validate mess should be shown for blank credential
     Given The login page page is showed1
     When The user login with blank value for both username and password
@@ -17,5 +18,9 @@ Feature: Login
 
   Scenario: The Dashboard Title will be show when login Success after Dev change Email
     Given The login page page is showed1
-    When The user attempt to login with username and password in ExcelFile
+    When I login with the following accounts
+      |Username             |Password  |
+      |quanbnm03@yopmail.com|12345678x@X|
+      |quanbnm04@yopmail.com|12345678x@X|
+      |quanbnm05@yopmail.com|12345678x@X|
     Then The title "Dashboard" should be showed

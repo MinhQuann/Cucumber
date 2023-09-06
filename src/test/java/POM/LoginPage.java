@@ -1,5 +1,6 @@
 package POM;
 
+import io.cucumber.java.sl.Ce;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -12,13 +13,23 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.apache.poi.ss.usermodel.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.*;
 import java.time.Duration;
 
+
 public class LoginPage  extends  PageObject {
 
+
     By clickBtnLoginOutSidePage = By.cssSelector("button.ant-btn-primary");
+
+    @FindBy(css = "div.sc-hknOHE")
+    public WebElement Profile;
+
+    By LogOut = By.id("ucrm_sign_out");
 
     @FindBy(id = "basic_email")
     public WebElement EmailLgn;
@@ -70,6 +81,12 @@ public class LoginPage  extends  PageObject {
         this.ClickBtnLoginPage.click();
     }
 
+    public void LogOut(){
+        this.Profile.click();
+        this.getDynamicElement(LogOut).click();
+
+    }
+
     public String ErrMsg() {
         WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(40));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(LockMsgWithIncorrectUserName_pwd)).getText();
@@ -86,78 +103,116 @@ public class LoginPage  extends  PageObject {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(InputPwdNoti)).getText();
     }
 
-    public void LoginTest() throws IOException {
-        //Specify the Path to your Excel file and sheet name
-        String filePath = "C:\\Users\\Bui Nguyen Minh Quan\\Desktop\\LoginFile.xlsx";
-        String sheetName = "Sheet1";
+//    public void LoginTest() throws IOException {
+//        //Specify the Path to your Excel file and sheet name
+//        String filePath = "C:\\Users\\Admin\\Downloads\\LoginFile.xlsx";
+//        String sheetName = "Sheet1";
+//
+//        //Open the Excelfile
+//        FileInputStream excelFile = new FileInputStream(filePath);
+//        Workbook workbook = new XSSFWorkbook(excelFile);
+//        Sheet sheet = workbook.getSheet(sheetName);
+//
+//        //Iterate through rows and columns to read data
+//        for (int i = 1; i <= sheet.getLastRowNum(); i++){
+//
+//
+//            Row row = sheet.getRow(i);
+//            String username = row.getCell(0).getStringCellValue();
+//            String password = row.getCell(1).getStringCellValue();
+//
+//            //Use username and password oin your test
+//
+//            this.EmailLgn.sendKeys(username);
+//            this.Pwdlgn.sendKeys(password);
+//            this.ClickBtnLoginPage.click();
+//        }
+//    }
+//
+//    public void ReadnWrite() throws IOException, InterruptedException {
+//        String filePath = "C:\\Users\\Bui Nguyen Minh Quan\\Desktop\\Scritp\\LoginFile.xlsx";
+//        String sheetName = "Sheet1";
+//
+//        //Open the Excelfile
+//        FileInputStream excelFile = new FileInputStream(filePath);
+//        Workbook workbook = new XSSFWorkbook(excelFile);
+//        Sheet sheet = workbook.getSheet(sheetName);
+//
+//        for (int i = 1; i <= sheet.getLastRowNum(); i++){
+//
+//            Row row = sheet.getRow(i);
+//            String username = row.getCell(0).getStringCellValue();
+//            String password = row.getCell(1).getStringCellValue();
+//
+//
+//            Open();
+//            performLogin(username,password);
+//
+//            if (loginPage.performLogin(username,password)){
+//                Cell resultCell = row.createCell(2);
+//                resultCell.setCellValue("pass");
+//            }else {
+//                row.createCell(2).setCellValue("fail");
+//            }
+//        }
+//        FileOutputStream outputStream = new FileOutputStream(filePath);
+//        workbook.write(outputStream);
+//        outputStream.close();
+//        workbook.close();
+//        excelFile.close();
+//    }
 
-        //Open the Excelfile
-        FileInputStream excelFile = new FileInputStream(filePath);
-        Workbook workbook = new XSSFWorkbook(excelFile);
-        Sheet sheet = workbook.getSheet(sheetName);
+//    public boolean performLogin(String username, String password)  {
+//        this.Login(username,password);
+//         return true;
+//    }
+    public static void writeResultToExcel (String filePath, String sheetName, int rowNum, int Column, String result) throws IOException {
 
-        //Iterate through rows and columns to read data
-        for (int i = 1; i <= sheet.getLastRowNum(); i++){
-
-
-            Row row = sheet.getRow(i);
-            String username = row.getCell(0).getStringCellValue();
-            String password = row.getCell(1).getStringCellValue();
-
-            //Use username and password oin your test
-
-            this.EmailLgn.sendKeys(username);
-            this.Pwdlgn.sendKeys(password);
-            this.ClickBtnLoginPage.click();
-        }
-    }
-
-    public void ReadnWrite() throws IOException, InterruptedException {
-        String filePath = "C:\\Users\\Admin\\Downloads\\LoginFile.xlsx";
-        String sheetName = "Sheet1";
-
-        //Open the Excelfile
-        FileInputStream excelFile = new FileInputStream(filePath);
-        Workbook workbook = new XSSFWorkbook(excelFile);
-        Sheet sheet = workbook.getSheet(sheetName);
-
-        for (int i = 1; i <= sheet.getLastRowNum(); i++){
-
-
-            Row row = sheet.getRow(i);
-            String username = row.getCell(0).getStringCellValue();
-            String password = row.getCell(1).getStringCellValue();
-
-            boolean loginSuccess = performLogin(username,password);
-
-            if (loginSuccess){
-                Cell resultCell = row.createCell(2);
-                resultCell.setCellValue("pass");
+        try {
+            FileInputStream fis = new FileInputStream(filePath);
+            Workbook wb = new XSSFWorkbook(fis);
+            Sheet sheet = wb.getSheet(sheetName);
+            Row row = null;
+            if (sheet != null) {
+                row = sheet.getRow(rowNum);
+                if (row != null) {
+                    Cell cell = row.createCell(Column);
+                    cell.setCellValue(result);
+                    FileOutputStream fos = new FileOutputStream(filePath);
+                    wb.write(fos);
+                    fos.close();
+                    fis.close();
+                } else {
+                    System.err.print("Row is null");
+                }
+            } else {
+                System.err.print("Sheet is null");
             }
-
         }
-
-        FileOutputStream outputStream = new FileOutputStream(filePath);
-        workbook.write(outputStream);
-        outputStream.close();
-        workbook.close();
-        excelFile.close();
-    }
-
-    public boolean performLogin(String username, String password) throws InterruptedException {
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.EmailLgn.sendKeys(username);
-        loginPage.Pwdlgn.sendKeys(password);
-        loginPage.ClickBtnLoginPage.click();
-
-        if (this.dashboard.GetTitleDashBoard().equals("Dashboard")) {
-            return true;
+            catch (IOException e){
+                e.printStackTrace();
+            }
         }
-        return false;
-    }
+   }
 
 
 
-}
+
+//    public static String readExcel(String filePath, String sheetName, int rowNum, int colNum) throws IOException {
+//        FileInputStream fís = new FileInputStream(filePath);
+//        Workbook wb = new XSSFWorkbook(fís);
+//        Sheet sheet = wb.getSheet(sheetName);
+//        Row row = sheet.getRow(rowNum);
+//        Cell cell  = row.getCell(colNum);
+//        String cellValue = cell.getStringCellValue();
+//
+//        fís.close();
+//        return cellValue;
+//    }
+
+
+
+
+
 
 
