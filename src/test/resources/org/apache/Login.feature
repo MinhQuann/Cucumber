@@ -16,7 +16,7 @@ Feature: Login
     When The user attempt to login with username "quanbnm003@yopmail.com" and pwd "12345678x@X"
     Then The title "Dashboard" should be showed
 
-  Scenario: The Dashboard Title will be show when login Success after Dev change Email
+  Scenario: The Dashboard Title will be show when login Success after Dev change email from @gmail.com --> @yopmail.com
     Given The login page page is showed1
     When I login with the following accounts
       |Username             |Password  |

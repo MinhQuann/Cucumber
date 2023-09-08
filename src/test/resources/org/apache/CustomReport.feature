@@ -24,6 +24,3 @@ Feature: Custom Report
     And I click Save Report and Noti "Success"
     And I Click RunReport Btn
     Then The Result is displays
-
-
-

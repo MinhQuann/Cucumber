@@ -62,6 +62,11 @@ public class LoginPage  extends  PageObject {
     WebDriver driver;
     Dashboard dashboard;
 
+    public void ClickOutSide(){
+        this.getDynamicElement(clickBtnLoginOutSidePage).click();
+
+    }
+
     public LoginPage(WebDriver driver) {
         super(driver);
         this.driver = driver;

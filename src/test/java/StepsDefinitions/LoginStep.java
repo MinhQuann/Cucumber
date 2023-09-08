@@ -2,6 +2,7 @@ package StepsDefinitions;
 
 import POM.Dashboard;
 import POM.LoginPage;
+import POM.PageObject;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -25,12 +26,13 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class LoginStep {
+public class LoginStep  {
 
 
     WebDriver driver;
     LoginPage loginPage;
     Dashboard dashboard;
+
 
 
     @Before
@@ -100,22 +102,23 @@ public class LoginStep {
         for (Map<String, String> account : accounts){
             String username = account.get("Username");
             String Password = account.get("Password");
-
             this.loginPage.Login(username, Password);
-
             String actual =  this.dashboard.GetTitleDashBoard();
 
-            if(actual.equals("Dashboard")){
-                System.out.print("Pass");
-                LoginPage.writeResultToExcel("C:\\Users\\Bui Nguyen Minh Quan\\Desktop\\Scritp\\TestCase.xlsx","Sheet1",2,2,"Pass");
-            }else {
-                LoginPage.writeResultToExcel("C:\\Users\\Bui Nguyen Minh Quan\\Desktop\\Scritp\\TestCase.xlsx","Sheet1",2,2,"Fail");
+            try {
+                Thread.sleep(5000);
+                if(actual.equals("Dashboard")){
+                    LoginPage.writeResultToExcel("C:\\Users\\Bui Nguyen Minh Quan\\Desktop\\Scritp\\TestCase.xlsx","Sheet1",1,2,"Pass");
+                }else {
+                    LoginPage.writeResultToExcel("C:\\Users\\Bui Nguyen Minh Quan\\Desktop\\Scritp\\TestCase.xlsx","Sheet1",1,2,"Fail");
+                }
+            }catch (IOException ioException){
+                ioException.printStackTrace();
             }
-            Thread.sleep(3000);
             this.loginPage.LogOut();
-            this.loginPage.Open();
-
+            this.loginPage.ClickOutSide();
         }
+
     }
 
 
