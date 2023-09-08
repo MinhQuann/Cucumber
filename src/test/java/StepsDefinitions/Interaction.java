@@ -14,9 +14,12 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.io.IOException;
+import java.time.Duration;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
 public class Interaction {
@@ -25,7 +28,9 @@ public class Interaction {
     LoginPage loginPage;
     Dashboard dashboard;
     TicketPage ticketPage;
-    private List<String> initialRecordIds;
+
+    String ListViewTicketPage ="https://uat.basebs.vn/ucrm/objects/obj_ticket_60446569/default-view";
+
 
     @Before
     public void Init(){
@@ -33,6 +38,7 @@ public class Interaction {
         this.driver.manage().window().maximize();
         this.loginPage = new LoginPage(this.driver);
         this.dashboard = new Dashboard(this.driver);
+        this.ticketPage = new TicketPage(this.driver);
     }
 
     @After
@@ -50,22 +56,27 @@ public class Interaction {
         this.loginPage.Login("testcrm05@yopmail.com","12345678x@X");
 
     }
-    @When("Khi có Email gửi đến Status Email Ticket = Unread")
-    public void khi_có_email_gửi_đến_status_email_ticket() {
-        initialRecordIds = this.ticketPage.getCurrentRecordID();
 
-        boolean isValueUnReadPresent = this.ticketPage.isValueUnReadPresent();
-        assertTrue("Unread", isValueUnReadPresent);
-    }
-    @When("Mở Consolidated view của record và đọc mail")
-    public void mở_consolidated_view_của_record_và_đọc_mail() {
+    @When("Khi có Email gửi đến Status Email Ticket = Unread => Mở Consolidated view của record và đọc mail" )
+    public void khi_có_email_gửi_đến_status_email_ticket() {
+//        try {
+//            this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(120));
+//            //Lây giá trị Unread của ID record mới nhất
+//            String unreadValue = this.ticketPage.getUnreadValueForLatestRecord();
+//            //Kiểm tra Status Email Ticket = "Unread"
+//            assertEquals("Unread",unreadValue);
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
 
 
     }
     @Then("Status Email Ticket = Read và Update thời gian đọc mail qua object Interaction thành ngày và giờ hiện tại")
-    public void status_email_ticket_và_update_thời_gian_đọc_mail_qua_object_interaction_thành_ngày_và_giờ_hiện_tại(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void status_email_ticket_và_update_thời_gian_đọc_mail_qua_object_interaction_thành_ngày_và_giờ_hiện_tại() {
+//        this.driver.get(ListViewTicketPage);
+        assertEquals("Read", this.ticketPage.getUnreadValueForLatestRecord());
+
     }
 
     @When("Màn hình Consolidated view của record thuộc object Ticket hiển thị")
@@ -99,6 +110,8 @@ public class Interaction {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
+
+
 
 
 

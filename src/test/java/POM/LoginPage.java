@@ -80,7 +80,7 @@ public class LoginPage  extends  PageObject {
         this.getDynamicElement(clickBtnLoginOutSidePage).click();
     }
     public void OpenUAT(){
-        this.driver.get("https://uat.basebs.vn/ucrm/dashboard");
+        this.driver.get("https://uat.basebs.vn/ucrm/objects/obj_ticket_60446569/default-view");
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         this.getDynamicElement(clickBtnLoginOutSidePage).click();
     }

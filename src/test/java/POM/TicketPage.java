@@ -17,30 +17,46 @@ public class TicketPage extends PageObject {
 
     WebDriver driver;
 
+
+
     public TicketPage(WebDriver driver){
         super(driver);
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
     }
 
-    public boolean isValueUnReadPresent(){
-        WebElement tbbody = driver.findElement(tbodyRecord);
-        return tbbody.getText().contains("UnRead");
-
-    }
-    public List<String> getCurrentRecordID(){
-        List<String> RecordID = new ArrayList<>();
-        List<WebElement> rows = driver.findElements(rowLocator);
-
-        for (WebElement row : rows){
-            String id = row.getAttribute("id");
-            RecordID.add(id);
-        }
-        return RecordID;
+    public List<WebElement> getCurrentRecord(){
+        WebElement tbody = driver.findElement(tbodyRecord);
+        List<WebElement> records = tbody.findElements(rowLocator);
+        return records;
     }
 
-    public void addNewRecord(){
+    public String getLatestRecordId(){
+        // lấy danh sách các record hiện tại
+         List<WebElement> records = getCurrentRecord();
 
+         // Lấy ID mới nhất bảng
+        WebElement latestRecord = records.get(records.size() -1);
+        return latestRecord.getAttribute("id");
     }
+
+    public String getUnreadValueForLatestRecord(){
+        // Lấy ID mới nhất
+        String latestId = getLatestRecordId();
+
+        //Xác định field Unread tồn tại trong record mới nhất
+        By UnreadLocator = By.xpath("//*[@id="+latestId+"]");
+
+        //Lấy giá trị Unread
+        WebElement unread = driver.findElement(UnreadLocator);
+        return unread.getText();
+    }
+
+    public void ClickNewRecordToOpenConsolidatedView(){
+    }
+
+
+
+
 
 }
