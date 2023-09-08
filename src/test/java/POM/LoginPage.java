@@ -177,29 +177,18 @@ public class LoginPage  extends  PageObject {
             FileInputStream fis = new FileInputStream(filePath);
             Workbook wb = new XSSFWorkbook(fis);
             Sheet sheet = wb.getSheet(sheetName);
-            Row row = null;
-            if (sheet != null) {
-                row = sheet.getRow(rowNum);
-                if (row != null) {
-                    Cell cell = row.createCell(Column);
-                    cell.setCellValue(result);
-                    FileOutputStream fos = new FileOutputStream(filePath);
-                    wb.write(fos);
-                    fos.close();
-                    fis.close();
-                } else {
-                    System.err.print("Row is null");
-                }
-            } else {
-                System.err.print("Sheet is null");
-            }
-        }
-            catch (IOException e){
+            Row row = sheet.getRow(rowNum);
+            Cell cell = row.createCell(Column);
+            cell.setCellValue(result);
+            FileOutputStream fos = new FileOutputStream(filePath);
+            wb.write(fos);
+            fos.close();
+            fis.close();
+        } catch (IOException e){
                 e.printStackTrace();
             }
         }
    }
-
 
 
 

@@ -74,6 +74,11 @@ public class ReportPage extends  PageObject{
         this.btnNext.click();
     }
 
+    public WebElement getText(){
+        return this.getDynamicElement(Name);
+    }
+
+
     public void OpenCustomReport(){
         this.driver.get("https://lab.connect247.vn/ucrm-sso/custom-report/64f499b154fe4c0a7eaafd12");
     }

@@ -8,6 +8,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 public class ReportCustomStep {
     WebDriver driver;
     LoginPage loginPage;
@@ -27,7 +30,7 @@ public class ReportCustomStep {
     }
     @Then("{string} name is showed, {string} btn, {string} btn")
     public void name_is_showed_btn_btn(String NameReport, String Save, String RunReport) {
-        //assertThat(this.reportPage.Name(), equalTo(NameReport));
+        assertThat(this.reportPage.getText(), equalTo(NameReport));
     }
     @When("The custom report page is displayed")
     public void the_custom_report_page_is_displayed() {
