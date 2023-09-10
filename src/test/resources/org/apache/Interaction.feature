@@ -29,8 +29,9 @@ Feature: Interaction
 
     Scenario: Khi đọc mail: Status Email Ticket = Read => Update lại Thời gian đọc email record Interaction Incoming
       Given Trang Login UAT được mở
-      When Khi có Email gửi đến Status Email Ticket = Unread => Mở Consolidated view của record và đọc mail
-      Then Status Email Ticket = Read và Update thời gian đọc mail qua object Interaction thành ngày và giờ hiện tại
+      When Khi có Email gửi đến Status Email Ticket = "Unread"
+      And Mở Consolidated view của record và đọc mail
+      Then Status Email Ticket = "Read"  Update thời gian đọc mail qua object Interaction thành ngày và giờ hiện tại
 
 #    Scenario: Khi có email của Ticket gửi ra => Update Trạng thái phản hồi Ticket => Đã phản hồi  => Trigger has change Trạng thái thay đổi => Update ngược về Interaction Incoming => Trạng thái Đã phản hồi.
 #      Given Trang Login UAT được mở
