@@ -6,21 +6,25 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import java.time.format.DateTimeFormatter;
 
 public class TicketPage extends PageObject {
 
+
     //Locator
     By tbodyRecord = By.cssSelector("tbody.table-body tr td.sc-huFNyZ");
     By rowLocator = By.xpath("/html/body/div[1]/section/section/main/div[3]/div[1]/div/table/tbody/tr");
     By Emailboxp = By.cssSelector("div[class = 'Email2__WrapEmail-sc-pji6uc-6 hGbKff']");
 
+    By tr = By.xpath("//tr[@id]");
+
 
 
     WebDriver driver;
+
+    InteractionPage interactionPage;
 
 
 
@@ -32,8 +36,7 @@ public class TicketPage extends PageObject {
 
     public List<WebElement> getCurrentRecord(){
         WebElement tbody = driver.findElement(tbodyRecord);
-        List<WebElement> records = tbody.findElements(rowLocator);
-        return records;
+        return tbody.findElements(rowLocator);
     }
 
 
@@ -46,9 +49,12 @@ public class TicketPage extends PageObject {
         return latestRecord.getAttribute("id");
     }
 
+
+
     public boolean VerifyUnreadValue() {
         List<WebElement> rows = driver.findElements(rowLocator);
         boolean unreadText = false;
+
         for (WebElement row : rows) {
             unreadText = row.getText().contains("Unread");
         }
@@ -58,6 +64,7 @@ public class TicketPage extends PageObject {
     }
 
     public boolean VerifyReadValue() {
+
         List<WebElement> rows = driver.findElements(rowLocator);
         boolean ReadText = false;
         for (WebElement row : rows) {
@@ -77,10 +84,11 @@ public class TicketPage extends PageObject {
 
 
 
-    public void OpenConsolidatedvied(){
+    public void OpenConsolidatedvied() throws InterruptedException {
         String lastesID = getLatestRecordId();
         this.driver.get("https://uat.basebs.vn/ucrm/consolidated-view/obj_ticket_60446569/"+lastesID);
         this.getDynamicElement(Emailboxp).click();
+        Thread.sleep(6000);
 
 
     }
@@ -88,10 +96,23 @@ public class TicketPage extends PageObject {
        LocalDateTime currentTime = LocalDateTime.now();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedTime = currentTime.format(formatter);
 
-        return formattedTime;
+        return currentTime.format(formatter);
     }
+
+    public String LatestID(){
+        List<WebElement> rows = driver.findElements(tr);
+        String lastedId = "";
+        for (WebElement row : rows){
+            String rowID = row.getAttribute("id");
+
+            if (rowID.compareTo(lastedId) > 0){
+                lastedId = rowID;
+            }
+        }
+        return lastedId;
+    }
+
 
 
 }

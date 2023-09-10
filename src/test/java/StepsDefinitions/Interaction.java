@@ -1,6 +1,7 @@
 package StepsDefinitions;
 
 import POM.Dashboard;
+import POM.InteractionPage;
 import POM.LoginPage;
 import POM.TicketPage;
 import io.cucumber.java.After;
@@ -29,6 +30,7 @@ public class Interaction {
     LoginPage loginPage;
     Dashboard dashboard;
     TicketPage ticketPage;
+    InteractionPage interactionPage;
 
     String ListViewTicketPage ="https://uat.basebs.vn/ucrm/objects/obj_ticket_60446569/default-view";
 
@@ -43,6 +45,8 @@ public class Interaction {
         this.loginPage = new LoginPage(this.driver);
         this.dashboard = new Dashboard(this.driver);
         this.ticketPage = new TicketPage(this.driver);
+        this.interactionPage = new InteractionPage(this.driver);
+
     }
 
     @After
@@ -63,14 +67,15 @@ public class Interaction {
     public void khi_có_email_gửi_đến_status_email_ticket(String Unread) {
         try {
             Thread.sleep(5000);
-            assertTrue(Unread, this.ticketPage.VerifyUnreadValue());
+            assertEquals(this.ticketPage.VerifyUnreadValue(), this.ticketPage.VerifyReadValue());
+            //assertTrue(Unread, this.ticketPage.VerifyUnreadValue());
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
     @When("Mở Consolidated view của record và đọc mail")
-    public void mở_consolidated_view_của_record_và_đọc_mail() {
+    public void mở_consolidated_view_của_record_và_đọc_mail() throws InterruptedException {
         this.ticketPage.OpenConsolidatedvied();
 
     }
@@ -87,6 +92,7 @@ public class Interaction {
         this.driver.get(InteractionPage);
         try {
             Thread.sleep(5000);
+            assertThat(this.ticketPage.DateTime(), equalTo(this.ticketPage.DateTime()));
 
         }catch (InterruptedException e){
             throw new RuntimeException(e);

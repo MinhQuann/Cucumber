@@ -41,6 +41,7 @@ public class LoginStep  {
         this.driver.manage().window().maximize();
         this.loginPage = new LoginPage(this.driver);
         this.dashboard = new Dashboard(this.driver);
+
     }
 
     @After
