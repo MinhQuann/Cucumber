@@ -65,6 +65,7 @@ public class Interaction {
     }
     @When("Khi có Email gửi đến Status Email Ticket = {string}")
     public void khi_có_email_gửi_đến_status_email_ticket(String Unread) {
+        //Đợi lên UAT sẽ fix issue Check Unread
         try {
             Thread.sleep(5000);
             assertEquals(this.ticketPage.VerifyUnreadValue(), this.ticketPage.VerifyReadValue());
@@ -81,7 +82,9 @@ public class Interaction {
     }
     @Then("Status Email Ticket = {string}  Update thời gian đọc mail qua object Interaction thành ngày và giờ hiện tại")
     public void status_email_ticket_update_thời_gian_đọc_mail_qua_object_interaction_thành_ngày_và_giờ_hiện_tại(String Read) {
+        //Đợi lên UAT sẽ fix issue Check Read
         this.driver.get(ListViewTicketPage);
+
         try {
             Thread.sleep(5000);
             assertTrue(Read, this.ticketPage.VerifyReadValue());
@@ -98,23 +101,7 @@ public class Interaction {
             throw new RuntimeException(e);
         }
 
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
