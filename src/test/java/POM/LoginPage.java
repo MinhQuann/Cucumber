@@ -94,7 +94,6 @@ public class LoginPage  extends  PageObject {
     public void LogOut(){
         this.Profile.click();
         this.getDynamicElement(LogOut).click();
-
     }
 
     public String ErrMsg() {

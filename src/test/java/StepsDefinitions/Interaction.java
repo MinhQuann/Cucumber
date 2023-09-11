@@ -1,9 +1,6 @@
 package StepsDefinitions;
 
-import POM.Dashboard;
-import POM.InteractionPage;
-import POM.LoginPage;
-import POM.TicketPage;
+import POM.*;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -32,6 +29,8 @@ public class Interaction {
     TicketPage ticketPage;
     InteractionPage interactionPage;
 
+    PageObject pageObject;
+
     String ListViewTicketPage ="https://uat.basebs.vn/ucrm/objects/obj_ticket_60446569/default-view";
 
     String InteractionPage = "https://uat.basebs.vn/ucrm/objects/obj_interaction_62080277/default-view";
@@ -46,7 +45,7 @@ public class Interaction {
         this.dashboard = new Dashboard(this.driver);
         this.ticketPage = new TicketPage(this.driver);
         this.interactionPage = new InteractionPage(this.driver);
-
+        this.pageObject = new PageObject(this.driver);
     }
 
     @After
@@ -68,7 +67,7 @@ public class Interaction {
         //Đợi lên UAT sẽ fix issue Check Unread
         try {
             Thread.sleep(5000);
-            assertEquals(this.ticketPage.VerifyUnreadValue(), this.ticketPage.VerifyReadValue());
+            assertThat(Unread, equalTo(this.ticketPage.VerifyUnreadValue()));
             //assertTrue(Unread, this.ticketPage.VerifyUnreadValue());
 
         } catch (InterruptedException e) {
@@ -84,18 +83,11 @@ public class Interaction {
     public void status_email_ticket_update_thời_gian_đọc_mail_qua_object_interaction_thành_ngày_và_giờ_hiện_tại(String Read) {
         //Đợi lên UAT sẽ fix issue Check Read
         this.driver.get(ListViewTicketPage);
-
-        try {
-            Thread.sleep(5000);
-            assertTrue(Read, this.ticketPage.VerifyReadValue());
-
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        assertThat(Read,equalTo(this.ticketPage.VerifyReadValue()));
         this.driver.get(InteractionPage);
         try {
             Thread.sleep(5000);
-            assertThat(this.ticketPage.DateTime(), equalTo(this.ticketPage.DateTime()));
+            assertThat(this.interactionPage.CheckDateTime(), equalTo(this.pageObject.DateTime()));
 
         }catch (InterruptedException e){
             throw new RuntimeException(e);

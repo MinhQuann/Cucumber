@@ -12,9 +12,6 @@ public class InteractionPage extends  PageObject{
     By tbody = By.cssSelector("tbody = [class ='table-body']");
     By tr = By.xpath("//tr[@id]");
 
-    By span = By.cssSelector("span[class = 'ant-typography ant-typography-ellipsis ant-typography-single-line ant-typography-ellipsis-single-line']");
-
-
 
    WebDriver driver;
    TicketPage ticketPage;
@@ -40,6 +37,13 @@ public class InteractionPage extends  PageObject{
     public WebElement newID(){
 
         return driver.findElement(By.id(LatestID()));
+    }
+
+    public String CheckDateTime(){
+        String LastestID = this.ticketPage.getLatestRecordId();
+        return driver.findElement(By.id("ucrm_"+LastestID+"_7")).getText();
+
+
     }
 
 
