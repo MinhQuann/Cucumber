@@ -49,13 +49,11 @@ public class TicketPage extends PageObject {
     }
 
     public String VerifyUnreadValue() {
-        String LastedID = getLatestRecordId();
-        return driver.findElement(By.id("ucrm_"+LastedID+"_3")).getText();
+        return driver.findElement(By.id("ucrm_"+getLatestRecordId()+"_3")).getText();
     }
 
     public String VerifyReadValue() {
-        String LastedID = getLatestRecordId();
-        return driver.findElement(By.id("ucrm_"+LastedID+"_3")).getText();
+        return driver.findElement(By.id("ucrm_"+getLatestRecordId()+"_3")).getText();
     }
 
 
