@@ -41,9 +41,12 @@ public class InteractionPage extends  PageObject{
 
     public String CheckDateTime(){
         String LastestID = this.ticketPage.getLatestRecordId();
+        return driver.findElement(By.id("ucrm_"+LastestID+"_8")).getText();
+
+    }
+    public String VerifStatusMailTicket(){
+        String LastestID =  this.ticketPage.getLatestRecordId();
         return driver.findElement(By.id("ucrm_"+LastestID+"_7")).getText();
-
-
     }
 
 

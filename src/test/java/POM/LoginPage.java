@@ -73,7 +73,6 @@ public class LoginPage  extends  PageObject {
         PageFactory.initElements(this.driver, this);
 
     }
-
     public void Open() {
         this.driver.get("https://lab.connect247.vn/ucrm-sso/");
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));

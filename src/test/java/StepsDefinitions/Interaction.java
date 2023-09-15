@@ -62,38 +62,97 @@ public class Interaction {
         this.loginPage.OpenUAT();
         this.loginPage.Login("testcrm05@yopmail.com","12345678x@X");
     }
-    @When("Khi có Email gửi đến Status Email Ticket = {string}")
-    public void khi_có_email_gửi_đến_status_email_ticket(String Unread) {
-        //Đợi lên UAT sẽ fix issue Check Unread
+    @When("Khi có Email gửi đến Mở màn hình Object Ticket")
+    public void khi_có_email_gửi_đến_mở_màn_hình_object_ticket() {
+        this.driver.get(ListViewTicketPage);
+        this.driver.manage().timeouts().implicitlyWait(Duration.ofMinutes(2));
+    }
+    @When("Status Email Ticket = {string}")
+    public void status_email_ticket(String Unread) {
+        assertThat(this.ticketPage.VerifyUnreadValue(), equalTo(Unread));
+
+    }
+    @When("Mở Consolidated view của record và đọc mail")
+    public void mở_consolidated_view_của_record_và_đọc_mail() {
+        this.ticketPage.OpenConsolidatedvied();
+        this.ticketPage.ClickReadMail();
+
+    }
+    @When("Status Email Ticket = {string}  Update")
+    public void status_email_ticket_update(String Read) {
+        this.driver.get(ListViewTicketPage);
         try {
-            Thread.sleep(5000);
-            assertThat(Unread, equalTo(this.ticketPage.VerifyUnreadValue()));
-            //assertTrue(Unread, this.ticketPage.VerifyUnreadValue());
+            Thread.sleep(4000);
+            assertThat(this.ticketPage.VerifyReadValue(), equalTo(Read));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    @Then("thời gian đọc mail qua object Interaction thành ngày và giờ hiện tại")
+    public void thời_gian_đọc_mail_qua_object_interaction_thành_ngày_và_giờ_hiện_tại() {
+        this.driver.get(InteractionPage);
+        try {
+            Thread.sleep(4000);
+            assertThat(this.ticketPage.ClickReadMail(), equalTo(this.interactionPage.CheckDateTime()));
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
     }
-    @When("Mở Consolidated view của record và đọc mail")
-    public void mở_consolidated_view_của_record_và_đọc_mail() throws InterruptedException {
+
+    @Given("Màn hình Consolidated view của record thuộc object Ticket hiển thị")
+    public void màn_hình_consolidated_view_của_record_thuộc_object_ticket_hiển_thị() {
         this.ticketPage.OpenConsolidatedvied();
 
     }
-    @Then("Status Email Ticket = {string}  Update thời gian đọc mail qua object Interaction thành ngày và giờ hiện tại")
-    public void status_email_ticket_update_thời_gian_đọc_mail_qua_object_interaction_thành_ngày_và_giờ_hiện_tại(String Read) {
-        //Đợi lên UAT sẽ fix issue Check Read
-        this.driver.get(ListViewTicketPage);
-        assertThat(Read,equalTo(this.ticketPage.VerifyReadValue()));
+    @When("Khi gửi Email ra từ UCRM")
+    public void khi_gửi_email_ra_từ_ucrm() {
+        this.ticketPage.ReplyEmailFromUCRM();
+    }
+    @When("field Trạng thái phản hồi sẽ được update thành Đã phản hồi")
+    public void field_trạng_thái_phản_hồi_sẽ_được_update_thành_đã_phản_hồi() {
+        assertThat(this.ticketPage.VerifStatusMailTicket(), equalTo("Đã phản hồi"));
+    }
+    @When("Trang object Interaction được mở ra")
+    public void trang_object_interaction_được_mở_ra() {
         this.driver.get(InteractionPage);
-        try {
-            Thread.sleep(5000);
-            assertThat(this.interactionPage.CheckDateTime(), equalTo(this.pageObject.DateTime()));
-
-        }catch (InterruptedException e){
-            throw new RuntimeException(e);
-        }
+    }
+    @Then("Field Trạng thái phản hồi Email1 được update thành Đã phản hồi")
+    public void field_trạng_thái_phản_hồi_email1_được_update_thành_đã_phản_hồi() {
+        this.interactionPage.VerifStatusMailTicket();
+    }
+    @Given("Object Ticket Page được mở ra")
+    public void object_ticket_page_được_mở_ra() {
+        this.driver.get(ListViewTicketPage);
+    }
+    @When("Khi có Email reply vào UCRM")
+    public void khi_có_email_reply_vào_ucrm() {
+        this.driver.get(ListViewTicketPage);
+        this.driver.manage().timeouts().implicitlyWait(Duration.ofMinutes(2));
 
     }
+    @Then("Field Trạng thái phản hồi Email được update thành Chưa phản hồi")
+    public void field_trạng_thái_phản_hồi_email_được_update_thành() {
+        assertThat(this.ticketPage.VerifStatusMailTicket(), equalTo("Chưa phản hồi"));
+    }
+    @Given("Màn hình Consolidated view của Email vừa được phản hồi mở ra")
+    public void màn_hình_consolidated_view_của_email_vừa_được_phản_hồi_mở_ra() {
+        this.ticketPage.OpenConsolidatedvied();
+    }
+    @When("Trạng thái phản hồi sẽ được update thành Đã phản hồi")
+    public void trạng_thái_phản_hồi_sẽ_được_update_thành_đã_phản_hồi() {
+        assertThat(this.ticketPage.VerifStatusMailTicket(), equalTo("Đã phản hồi"));
+    }
+
+
+
+
+
+
+
+
 
 
 

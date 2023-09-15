@@ -1,7 +1,6 @@
 package POM;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -15,9 +14,19 @@ public class TicketPage extends PageObject {
 
 
     //Locator
-    By tbodyRecord = By.cssSelector("tbody.table-body tr td.sc-huFNyZ");
+    By tbodyRecord = By.cssSelector("tbody.table-body");
     By rowLocator = By.xpath("/html/body/div[1]/section/section/main/div[3]/div[1]/div/table/tbody/tr");
     By Emailboxp = By.cssSelector("div[class = 'Email2__WrapEmail-sc-pji6uc-6 hGbKff']");
+
+    By Reply = By.cssSelector("button[class = 'ant-btn ant-btn-default Email2__Reply-sc-pji6uc-24 cxGUgT']");
+
+    By BodyRepmail = By.cssSelector("div.jodit-wysiwyg");
+
+    By SendEmail = By.cssSelector("button[class = 'ant-btn ant-btn-primary Email2__SendEmail-sc-pji6uc-29 bMIhLb']");
+
+
+
+
 
 
 
@@ -32,56 +41,68 @@ public class TicketPage extends PageObject {
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
     }
-
-
     public List<WebElement> getCurrentRecord(){
         WebElement tbody = driver.findElement(tbodyRecord);
         return tbody.findElements(rowLocator);
     }
-
     public String getLatestRecordId(){
         // lấy danh sách các record hiện tại
          List<WebElement> records = getCurrentRecord();
 
          // Lấy ID mới nhất bảng
-        WebElement latestRecord = records.get(records.size()-1);
+        WebElement latestRecord = records.get(0);
         return latestRecord.getAttribute("id");
+
     }
 
     public String VerifyUnreadValue() {
-        return driver.findElement(By.id("ucrm_"+getLatestRecordId()+"_3")).getText();
+
+        return driver.findElement(By.id("ucrm_"+getLatestRecordId()+"_4")).getText();
     }
 
     public String VerifyReadValue() {
-        return driver.findElement(By.id("ucrm_"+getLatestRecordId()+"_3")).getText();
+
+        return driver.findElement(By.id("ucrm_"+getLatestRecordId()+"_4")).getText();
     }
 
 
-    public void OpenConsolidatedvied() throws InterruptedException {
+    public void OpenConsolidatedvied()  {
         String lastesID = getLatestRecordId();
         this.driver.get("https://uat.basebs.vn/ucrm/consolidated-view/obj_ticket_60446569/"+lastesID);
-        this.getDynamicElement(Emailboxp).click();
-        Thread.sleep(6000);
-
     }
+
+    public String ClickReadMail(){
+       this.getDynamicElement(Emailboxp).click();
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedTime = currentTime.format(formatter);
+        return formattedTime;
+    }
+//    public String Timereadmail(){
+//        LocalDateTime currentTime = LocalDateTime.now();
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        String formattedTime = currentTime.format(formatter);
+//
+//        return formattedTime;
+//
+//    }
+
+
 
     public void ReplyEmailFromUCRM(){
+        this.getDynamicElement(Emailboxp).click();
+        this.driver.findElement(Reply).click();
+        this.driver.findElement(BodyRepmail).sendKeys("xin chào mail test");
+        this.driver.findElement(SendEmail).click();
 
     }
 
+    public String VerifStatusMailTicket(){
+        return driver.findElement(By.id("ucrm_"+getLatestRecordId()+"_9")).getText();
+    }
 
-//    public String LatestID(){
-//        List<WebElement> rows = driver.findElements(tr);
-//        String lastedId = "";
-//        for (WebElement row : rows){
-//            String rowID = row.getAttribute("id");
-//
-//            if (rowID.compareTo(lastedId) > 0){
-//                lastedId = rowID;
-//            }
-//        }
-//        return lastedId;
-//    }
 
 
 
