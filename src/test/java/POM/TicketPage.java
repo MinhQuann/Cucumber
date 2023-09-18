@@ -24,12 +24,6 @@ public class TicketPage extends PageObject {
 
     By SendEmail = By.cssSelector("button[class = 'ant-btn ant-btn-primary Email2__SendEmail-sc-pji6uc-29 bMIhLb']");
 
-
-
-
-
-
-
     WebDriver driver;
 
     InteractionPage interactionPage;
@@ -72,7 +66,7 @@ public class TicketPage extends PageObject {
     }
 
     public String ClickReadMail(){
-       this.getDynamicElement(Emailboxp).click();
+        this.getDynamicElement(Emailboxp).click();
         LocalDateTime currentTime = LocalDateTime.now();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

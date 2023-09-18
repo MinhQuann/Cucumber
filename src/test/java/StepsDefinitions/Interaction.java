@@ -61,11 +61,11 @@ public class Interaction {
     public void trang_login_uat_được_mở() {
         this.loginPage.OpenUAT();
         this.loginPage.Login("testcrm05@yopmail.com","12345678x@X");
+        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
     @When("Khi có Email gửi đến Mở màn hình Object Ticket")
     public void khi_có_email_gửi_đến_mở_màn_hình_object_ticket() {
         this.driver.get(ListViewTicketPage);
-        this.driver.manage().timeouts().implicitlyWait(Duration.ofMinutes(2));
     }
     @When("Status Email Ticket = {string}")
     public void status_email_ticket(String Unread) {
@@ -78,7 +78,7 @@ public class Interaction {
         this.ticketPage.ClickReadMail();
 
     }
-    @When("Status Email Ticket = {string}  Update")
+    @When("Status Email Ticket = {string} Update")
     public void status_email_ticket_update(String Read) {
         this.driver.get(ListViewTicketPage);
         try {
@@ -99,9 +99,7 @@ public class Interaction {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
     }
-
     @Given("Màn hình Consolidated view của record thuộc object Ticket hiển thị")
     public void màn_hình_consolidated_view_của_record_thuộc_object_ticket_hiển_thị() {
         this.ticketPage.OpenConsolidatedvied();
