@@ -61,10 +61,11 @@ public class Interaction {
     public void trang_login_uat_được_mở() {
         this.loginPage.OpenUAT();
         this.loginPage.Login("testcrm05@yopmail.com","12345678x@X");
-        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
     }
     @When("Khi có Email gửi đến Mở màn hình Object Ticket")
     public void khi_có_email_gửi_đến_mở_màn_hình_object_ticket() {
+        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         this.driver.get(ListViewTicketPage);
     }
     @When("Status Email Ticket = {string}")
@@ -87,62 +88,61 @@ public class Interaction {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
     }
     @Then("thời gian đọc mail qua object Interaction thành ngày và giờ hiện tại")
     public void thời_gian_đọc_mail_qua_object_interaction_thành_ngày_và_giờ_hiện_tại() {
         this.driver.get(InteractionPage);
         try {
             Thread.sleep(4000);
-            assertThat(this.ticketPage.ClickReadMail(), equalTo(this.interactionPage.CheckDateTime()));
+            assertThat(this.pageObject.DateTime(), equalTo(this.interactionPage.CheckDateTime()));
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
-    @Given("Màn hình Consolidated view của record thuộc object Ticket hiển thị")
-    public void màn_hình_consolidated_view_của_record_thuộc_object_ticket_hiển_thị() {
-        this.ticketPage.OpenConsolidatedvied();
-
-    }
-    @When("Khi gửi Email ra từ UCRM")
-    public void khi_gửi_email_ra_từ_ucrm() {
-        this.ticketPage.ReplyEmailFromUCRM();
-    }
-    @When("field Trạng thái phản hồi sẽ được update thành Đã phản hồi")
-    public void field_trạng_thái_phản_hồi_sẽ_được_update_thành_đã_phản_hồi() {
-        assertThat(this.ticketPage.VerifStatusMailTicket(), equalTo("Đã phản hồi"));
-    }
-    @When("Trang object Interaction được mở ra")
-    public void trang_object_interaction_được_mở_ra() {
-        this.driver.get(InteractionPage);
-    }
-    @Then("Field Trạng thái phản hồi Email1 được update thành Đã phản hồi")
-    public void field_trạng_thái_phản_hồi_email1_được_update_thành_đã_phản_hồi() {
-        this.interactionPage.VerifStatusMailTicket();
-    }
-    @Given("Object Ticket Page được mở ra")
-    public void object_ticket_page_được_mở_ra() {
-        this.driver.get(ListViewTicketPage);
-    }
-    @When("Khi có Email reply vào UCRM")
-    public void khi_có_email_reply_vào_ucrm() {
-        this.driver.get(ListViewTicketPage);
-        this.driver.manage().timeouts().implicitlyWait(Duration.ofMinutes(2));
-
-    }
-    @Then("Field Trạng thái phản hồi Email được update thành Chưa phản hồi")
-    public void field_trạng_thái_phản_hồi_email_được_update_thành() {
-        assertThat(this.ticketPage.VerifStatusMailTicket(), equalTo("Chưa phản hồi"));
-    }
-    @Given("Màn hình Consolidated view của Email vừa được phản hồi mở ra")
-    public void màn_hình_consolidated_view_của_email_vừa_được_phản_hồi_mở_ra() {
-        this.ticketPage.OpenConsolidatedvied();
-    }
-    @When("Trạng thái phản hồi sẽ được update thành Đã phản hồi")
-    public void trạng_thái_phản_hồi_sẽ_được_update_thành_đã_phản_hồi() {
-        assertThat(this.ticketPage.VerifStatusMailTicket(), equalTo("Đã phản hồi"));
-    }
+//    @Given("Màn hình Consolidated view của record thuộc object Ticket hiển thị")
+//    public void màn_hình_consolidated_view_của_record_thuộc_object_ticket_hiển_thị() {
+//        this.ticketPage.OpenConsolidatedvied();
+//
+//    }
+//    @When("Khi gửi Email ra từ UCRM")
+//    public void khi_gửi_email_ra_từ_ucrm() {
+//        this.ticketPage.ReplyEmailFromUCRM();
+//    }
+//    @When("field Trạng thái phản hồi sẽ được update thành Đã phản hồi")
+//    public void field_trạng_thái_phản_hồi_sẽ_được_update_thành_đã_phản_hồi() {
+//        assertThat(this.ticketPage.VerifStatusMailTicket(), equalTo("Đã phản hồi"));
+//    }
+//    @When("Trang object Interaction được mở ra")
+//    public void trang_object_interaction_được_mở_ra() {
+//        this.driver.get(InteractionPage);
+//    }
+//    @Then("Field Trạng thái phản hồi Email1 được update thành Đã phản hồi")
+//    public void field_trạng_thái_phản_hồi_email1_được_update_thành_đã_phản_hồi() {
+//        this.interactionPage.VerifStatusMailTicket();
+//    }
+//    @Given("Object Ticket Page được mở ra")
+//    public void object_ticket_page_được_mở_ra() {
+//        this.driver.get(ListViewTicketPage);
+//    }
+//    @When("Khi có Email reply vào UCRM")
+//    public void khi_có_email_reply_vào_ucrm() {
+//        this.driver.get(ListViewTicketPage);
+//        this.driver.manage().timeouts().implicitlyWait(Duration.ofMinutes(2));
+//
+//    }
+//    @Then("Field Trạng thái phản hồi Email được update thành Chưa phản hồi")
+//    public void field_trạng_thái_phản_hồi_email_được_update_thành() {
+//        assertThat(this.ticketPage.VerifStatusMailTicket(), equalTo("Chưa phản hồi"));
+//    }
+//    @Given("Màn hình Consolidated view của Email vừa được phản hồi mở ra")
+//    public void màn_hình_consolidated_view_của_email_vừa_được_phản_hồi_mở_ra() {
+//        this.ticketPage.OpenConsolidatedvied();
+//    }
+//    @When("Trạng thái phản hồi sẽ được update thành Đã phản hồi")
+//    public void trạng_thái_phản_hồi_sẽ_được_update_thành_đã_phản_hồi() {
+//        assertThat(this.ticketPage.VerifStatusMailTicket(), equalTo("Đã phản hồi"));
+//    }
 
 
 

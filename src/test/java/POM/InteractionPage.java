@@ -22,22 +22,6 @@ public class InteractionPage extends  PageObject{
         PageFactory.initElements(this.driver, this);
     }
 
-    public String LatestID(){
-        List<WebElement> rows = driver.findElements(tr);
-        String lastedId = "";
-        for (WebElement row : rows){
-            String rowID = row.getAttribute("id");
-
-            if (rowID.compareTo(lastedId) > 0){
-                lastedId = rowID;
-            }
-        }
-        return lastedId;
-    }
-    public WebElement newID(){
-
-        return driver.findElement(By.id(LatestID()));
-    }
 
     public String CheckDateTime(){
         String LastestID = this.ticketPage.getLatestRecordId();

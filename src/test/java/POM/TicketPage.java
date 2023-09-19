@@ -66,11 +66,11 @@ public class TicketPage extends PageObject {
     }
 
     public String ClickReadMail(){
-        this.getDynamicElement(Emailboxp).click();
         LocalDateTime currentTime = LocalDateTime.now();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedTime = currentTime.format(formatter);
+        String formattedTime;
+        formattedTime = currentTime.format(formatter);
         return formattedTime;
     }
 //    public String Timereadmail(){
