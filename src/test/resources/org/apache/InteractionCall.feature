@@ -35,6 +35,12 @@ Feature: InteractionCall C247 Cloud
 
     Scenario:  SĐT >=2 Contact - Có chọn 1 Contact rồi back lại chọn Contact khác sau khi End Call
       When Thực hiện cuộc gọi
+      And Bắt máy cuộc gọi
+      And Chọn 1 contact trên list
+      And Bấm End Call
+      And Chọn 1 contact khác trên list
+      Then Interaction chỉ linking tới 1 contact được chọn cuối cùng
+
 
 
 
