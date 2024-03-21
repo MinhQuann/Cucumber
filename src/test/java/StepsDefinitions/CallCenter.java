@@ -30,8 +30,6 @@ public class CallCenter {
     POM.CallCenter callCenter;
     PageObject pageObject;
 
-    public CallCenter(WebDriver driver) {
-    }
 
 //    String ListViewTicketPage ="https://uat.basebs.vn/ucrm/objects/obj_ticket_60446569/default-view";
 //
