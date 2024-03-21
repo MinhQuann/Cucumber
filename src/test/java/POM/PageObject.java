@@ -25,6 +25,8 @@ public class PageObject {
 
     LoginPage loginPage;
 
+    CallCenter CallCenter;
+
     public PageObject(WebDriver driver){
         this.driver = driver;
     }
@@ -38,25 +40,25 @@ public class PageObject {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return currentTime.format(formatter);
     }
-    public void LoginMail() throws InterruptedException {
-        this.driver.get("https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ifkv=AYZoVhe_AUR3LnZDQ7_QQYmDuPk2tbRo5ScSwF7mNCSnNeqWZJtLzfCWYxjFkETtPTRDJ3Rquo9sXw&rip=1&sacu=1&service=mail&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-905116890%3A1694756607960598&theme=glif");
-        this.driver.findElement(By.cssSelector("div.Xb9hP input[ type = 'email']")).sendKeys("quanbnm@basebs.com", Keys.ENTER);
-//        this.driver.findElement(By.xpath("//span[@jsname = 'V67aGc']")).click();
-        Thread.sleep(3000);
-        this.driver.findElement(By.cssSelector("div.Xb9hP input[type = 'password']")).sendKeys("Quan081098", Keys.ENTER);
-        Thread.sleep(5000);
-//        this.driver.findElement(By.xpath("//span[@jsname = 'V67aGc']")).click();
-        this.driver.findElement(By.cssSelector("button[class = 'by7 T-I']")).click();
-        this.driver.findElement(By.cssSelector("div[class = 'z0'] div[class = 'T-I T-I-KE L3']")).click();
-        Thread.sleep(4000);
-        //Email
-        this.driver.findElement(By.cssSelector("input[class ='agP aFw']")).sendKeys("unifycrm.test02@outlook.com");
-        // Subject
-        this.driver.findElement(By.cssSelector("input[name = 'subjectbox']")).sendKeys("Test Email");
-        //Body
-        this.driver.findElement(By.id(":qa")).sendKeys("Đây là mail test");
-        this.driver.findElement(By.id(":ós")).click();
-    }
+//    public void LoginMail() throws InterruptedException {
+//        this.driver.get("https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ifkv=AYZoVhe_AUR3LnZDQ7_QQYmDuPk2tbRo5ScSwF7mNCSnNeqWZJtLzfCWYxjFkETtPTRDJ3Rquo9sXw&rip=1&sacu=1&service=mail&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-905116890%3A1694756607960598&theme=glif");
+//        this.driver.findElement(By.cssSelector("div.Xb9hP input[ type = 'email']")).sendKeys("quanbnm@basebs.com", Keys.ENTER);
+////        this.driver.findElement(By.xpath("//span[@jsname = 'V67aGc']")).click();
+//        Thread.sleep(3000);
+//        this.driver.findElement(By.cssSelector("div.Xb9hP input[type = 'password']")).sendKeys("Quan081098", Keys.ENTER);
+//        Thread.sleep(5000);
+////        this.driver.findElement(By.xpath("//span[@jsname = 'V67aGc']")).click();
+//        this.driver.findElement(By.cssSelector("button[class = 'by7 T-I']")).click();
+//        this.driver.findElement(By.cssSelector("div[class = 'z0'] div[class = 'T-I T-I-KE L3']")).click();
+//        Thread.sleep(4000);
+//        //Email
+//        this.driver.findElement(By.cssSelector("input[class ='agP aFw']")).sendKeys("unifycrm.test02@outlook.com");
+//        // Subject
+//        this.driver.findElement(By.cssSelector("input[name = 'subjectbox']")).sendKeys("Test Email");
+//        //Body
+//        this.driver.findElement(By.id(":qa")).sendKeys("Đây là mail test");
+//        this.driver.findElement(By.id(":ós")).click();
+//    }
 
 
 

@@ -83,6 +83,11 @@ public class LoginPage  extends  PageObject {
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         this.getDynamicElement(clickBtnLoginOutSidePage).click();
     }
+    public  void OpenV3(){
+        this.driver.get("https://lab.connect247.vn/ucrm-ver3/call-center");
+        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        this.getDynamicElement(clickBtnLoginOutSidePage).click();
+    }
 
     public void Login(String userN, String PWD) {
         this.EmailLgn.sendKeys(userN);
